@@ -11,19 +11,26 @@ import (
 	"os"
 	"regexp"
 	"runtime"
+	"time"
 
 	"github.com/MatusOllah/makesticker/assets"
 	cmdcolor "github.com/fatih/color"
 	"github.com/fogleman/gg"
 	"github.com/mazznoer/csscolorparser"
 	"github.com/spf13/pflag"
+	"github.com/theckman/yacspin"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 )
 
+var spin *yacspin.Spinner
+
 func handleError(err error) {
 	if err != nil {
-		red := cmdcolor.New(cmdcolor.FgRed, cmdcolor.Bold).SprintFunc()
+		if spin != nil {
+			spin.StopFail()
+		}
+		red := cmdcolor.New(cmdcolor.FgRed).SprintFunc()
 		fmt.Fprintf(os.Stderr, "%s %s\n", red("Error:"), err.Error())
 		os.Exit(1)
 	}
@@ -124,14 +131,29 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Positional arguments
 	if len(pflag.Args()) < 2 {
 		fmt.Fprintf(os.Stderr, "Usage: %s [options] character text\n\n", os.Args[0])
 		handleError(fmt.Errorf("invalid arguments"))
 	}
-
-	// Positional arguments
 	character := pflag.Args()[0]
 	text := pflag.Args()[1]
+
+	if !*quietFlag {
+		var err error
+		spin, err = yacspin.New(yacspin.Config{
+			Frequency:         200 * time.Millisecond,
+			Writer:            os.Stderr,
+			ColorAll:          true,
+			CharSet:           yacspin.CharSets[9],
+			Message:           " Generating",
+			StopFailMessage:   " Failed",
+			StopFailCharacter: "✗",
+			StopFailColors:    []string{"fgRed"},
+		})
+		handleError(err)
+		handleError(spin.Start())
+	}
 
 	// Character image
 	characterImg, err := getCharacterImage(character)
@@ -166,5 +188,9 @@ func main() {
 		handleError(dc.EncodePNG(os.Stdout))
 	} else {
 		handleError(dc.SavePNG(*outputFlag))
+	}
+
+	if spin != nil {
+		handleError(spin.Stop())
 	}
 }

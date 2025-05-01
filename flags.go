@@ -10,6 +10,7 @@ import (
 var (
 	helpFlag         = pflag.BoolP("help", "h", false, "Print help message")
 	versionFlag      = pflag.Bool("version", false, "Print version and exit")
+	quietFlag        = pflag.BoolP("quiet", "q", false, "Be quiet and disable spinner")
 	outputFlag       = pflag.StringP("output", "o", "sticker.png", "Output image (- = stdout)")
 	textFontSizeFlag = pflag.Float64("text-font-size", 36, "Text font size")
 	textXFlag        = pflag.Float64("text-x", 148, "Text X position")

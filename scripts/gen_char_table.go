@@ -19,6 +19,8 @@ func main() {
 
 	fmt.Fprintln(&mdBuf, "# List of characters")
 	fmt.Fprintln(&mdBuf)
+	fmt.Fprintln(&mdBuf, "`CTRL+F` is your friend! 😄")
+	fmt.Fprintln(&mdBuf)
 	fmt.Fprintln(&mdBuf, "| Name | Sample image |")
 	fmt.Fprintln(&mdBuf, "|------|--------------|")
 
@@ -31,7 +33,7 @@ func main() {
 			return nil
 		}
 
-		fmt.Fprintf(&mdBuf, "| %[1]s | <img src=\"assets/characters/%[1]s.png\" alt=\"%[1]s\" width=\"128\"> |\n", strings.ReplaceAll(filepath.Base(path), ".png", ""))
+		fmt.Fprintf(&mdBuf, "| %[1]s | <img src=\"assets/characters/%[1]s.png\" alt=\"%[1]s\" width=\"200\"> |\n", strings.ReplaceAll(filepath.Base(path), ".png", ""))
 
 		return nil
 	})

@@ -43,7 +43,7 @@ makesticker emu_13 "Wonderhoy!" -o my_sticker.png
     <img src="docs/sample_sticker.png" alt="Wonderhoy!" width="200">
 </p>
 
-### 😜 Available Characters
+### Available Characters
 
 You can find the full list of available characters [here](CHARACTERS.md).
 

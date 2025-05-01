@@ -2,8 +2,8 @@
 
 `CTRL+F` is your friend! 😄
 
-| Name | Sample image |
-|------|--------------|
+| Character ID | Sample image |
+|--------------|--------------|
 | airi_01 | <img src="assets/characters/airi_01.png" alt="airi_01" width="200"> |
 | airi_02 | <img src="assets/characters/airi_02.png" alt="airi_02" width="200"> |
 | airi_03 | <img src="assets/characters/airi_03.png" alt="airi_03" width="200"> |

@@ -21,8 +21,8 @@ func main() {
 	fmt.Fprintln(&mdBuf)
 	fmt.Fprintln(&mdBuf, "`CTRL+F` is your friend! 😄")
 	fmt.Fprintln(&mdBuf)
-	fmt.Fprintln(&mdBuf, "| Name | Sample image |")
-	fmt.Fprintln(&mdBuf, "|------|--------------|")
+	fmt.Fprintln(&mdBuf, "| Character ID | Sample image |")
+	fmt.Fprintln(&mdBuf, "|--------------|--------------|")
 
 	err := filepath.WalkDir(filepath.Join(*assetsFlag, "characters"), func(path string, d fs.DirEntry, err error) error {
 		if err != nil {

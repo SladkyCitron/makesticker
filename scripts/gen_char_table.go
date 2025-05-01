@@ -19,7 +19,7 @@ func main() {
 
 	fmt.Fprintln(&mdBuf, "# List of characters")
 	fmt.Fprintln(&mdBuf)
-	fmt.Fprintln(&mdBuf, "`CTRL+F` is your friend! 😄")
+	fmt.Fprintln(&mdBuf, "`CTRL+F` is your friend! 😉")
 	fmt.Fprintln(&mdBuf)
 	fmt.Fprintln(&mdBuf, "| Character ID | Sample image |")
 	fmt.Fprintln(&mdBuf, "|--------------|--------------|")

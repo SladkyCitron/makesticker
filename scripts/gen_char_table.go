@@ -12,7 +12,7 @@ import (
 
 func main() {
 	assetsFlag := flag.String("assets", "assets", "Path to assets directory")
-	outputFlag := flag.String("output", "characters.md", "Output file")
+	outputFlag := flag.String("output", "CHARACTERS.md", "Output file")
 	flag.Parse()
 
 	var mdBuf bytes.Buffer

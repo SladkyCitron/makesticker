@@ -46,6 +46,7 @@ makesticker emu_13 "Wonderhoy!" -o my_sticker.png
 ### 😜 Available Characters
 
 You can find the full list of available characters [here](CHARACTERS.md).
+
 Example IDs include: `miku_01`, `emu_13`, `tsukasa_11`, `airi_02`, etc...
 
 ### Options
@@ -64,9 +65,11 @@ Example IDs include: `miku_01`, `emu_13`, `tsukasa_11`, `airi_02`, etc...
 ## 🖼️ Output
 
 Your sticker will be saved as a PNG file, or via stdout, with your chosen character and message.
+
 Perfect for Discord, WhatsApp, Reddit, or anywhere really! 😄
 
 ## ⚖️ License
 
 Copyright (c) 2025 Matúš Ollah
+
 Licensed under the **MIT License** (see [LICENSE](LICENSE)) - free to use, fork, remix, and share!

@@ -1,14 +1,18 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"image/color"
 	"io/fs"
 	"os"
+	"regexp"
 	"runtime"
 
 	"github.com/MatusOllah/makesticker/assets"
-	"github.com/fatih/color"
+	cmdcolor "github.com/fatih/color"
 	"github.com/fogleman/gg"
+	"github.com/mazznoer/csscolorparser"
 	"github.com/spf13/pflag"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
@@ -16,7 +20,7 @@ import (
 
 func handleError(err error) {
 	if err != nil {
-		red := color.New(color.FgRed, color.Bold).SprintFunc()
+		red := cmdcolor.New(cmdcolor.FgRed, cmdcolor.Bold).SprintFunc()
 		fmt.Fprintf(os.Stderr, "%s %s\n", red("Error:"), err.Error())
 		os.Exit(1)
 	}
@@ -34,6 +38,45 @@ func parseFont(size float64) (font.Face, error) {
 	}
 
 	return opentype.NewFace(font, &opentype.FaceOptions{Size: size, DPI: 72})
+}
+
+func getTextColor(character string) (color.Color, error) {
+	b, err := fs.ReadFile(assets.FS, "text_colors.json")
+	if err != nil {
+		return nil, fmt.Errorf("failed to open text colors file: %w", err)
+	}
+
+	var colors map[string]string
+	if err := json.Unmarshal(b, &colors); err != nil {
+		return nil, fmt.Errorf("failed to parse text colors JSON: %w", err)
+	}
+
+	for pattern, colorString := range colors {
+		matched, err := regexp.MatchString(pattern, character)
+		if err != nil {
+			return nil, fmt.Errorf("failed to match character regex: %w", err)
+		}
+		if matched {
+			c, err := csscolorparser.Parse(colorString)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse color string %s: %w", colorString, err)
+			}
+			return c, nil
+		}
+	}
+	return nil, fmt.Errorf("no matching text color for character: %s", character)
+}
+
+func drawStringAnchoredOutline(dc *gg.Context, s string, x float64, y float64, ax float64, ay float64, strokeSize int) {
+	for dy := -strokeSize; dy <= strokeSize; dy++ {
+		for dx := -strokeSize; dx <= strokeSize; dx++ {
+			if dx*dx+dy*dy >= strokeSize*strokeSize {
+				// give it rounded corners
+				continue
+			}
+			dc.DrawStringAnchored(s, x+float64(dx), y+float64(dy), ax, ay)
+		}
+	}
 }
 
 func main() {
@@ -54,15 +97,24 @@ func main() {
 		handleError(fmt.Errorf("invalid arguments"))
 	}
 
-	_ = pflag.Args()[0] // TODO: the character
+	// Positional arguments
+	character := pflag.Args()[0] // TODO: the character
 	text := pflag.Args()[1]
 
+	// Font
 	textFace, err := parseFont(*fontSizeFlag)
 	handleError(err)
 
-	ctx := gg.NewContext(296, 256)
-	ctx.SetFontFace(textFace)
-	ctx.SetRGB(0, 0, 0)
-	ctx.DrawStringAnchored(text, 128, 128, 0.5, 0.5)
-	ctx.SavePNG(*outputFlag)
+	// Text color
+	// by the way, I could have just used dc.SetColorHex instead of parsing manually but I wanted more flexibility
+	textColor, err := getTextColor(character)
+	handleError(err)
+
+	dc := gg.NewContext(296, 256)
+	dc.SetFontFace(textFace)
+	dc.SetRGB(1, 1, 1)
+	drawStringAnchoredOutline(dc, text, 128, 128, 0.5, 0.5, 5)
+	dc.SetColor(textColor)
+	dc.DrawStringAnchored(text, 128, 128, 0.5, 0.5)
+	dc.SavePNG(*outputFlag)
 }

@@ -7,6 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/fatih/color v1.18.0
 	github.com/fogleman/gg v1.3.0
+	github.com/mazznoer/csscolorparser v0.1.5
 	github.com/spf13/pflag v1.0.6
 	golang.org/x/image v0.26.0
 )

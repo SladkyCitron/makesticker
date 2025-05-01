@@ -1,6 +1,6 @@
 # List of characters
 
-`CTRL+F` is your friend! 😄
+`CTRL+F` is your friend! 😉
 
 | Character ID | Sample image |
 |--------------|--------------|

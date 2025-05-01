@@ -1,6 +1,7 @@
 # 🌟 makesticker
 
 **makesticker** is a tiny but mighty CLI tool for creating *Project SEKAI* stickers with your favorite characters and custom text, right from your terminal! 💻🌟
+
 Written in **Go**, robust, and perfect for memes, reactions, or just spreading love in sticker form. 💌
 
 ## ✨ Features

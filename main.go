@@ -3,7 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"image"
 	"image/color"
+	_ "image/jpeg"
+	_ "image/png"
 	"io/fs"
 	"os"
 	"regexp"
@@ -24,6 +27,35 @@ func handleError(err error) {
 		fmt.Fprintf(os.Stderr, "%s %s\n", red("Error:"), err.Error())
 		os.Exit(1)
 	}
+}
+
+func getCharacterImage(character string) (image.Image, error) {
+	// From local disk
+	if f, err := os.Open(character); err == nil {
+		defer f.Close()
+
+		img, _, err := image.Decode(f)
+		if err != nil {
+			return nil, fmt.Errorf("failed to decode character image: %w", err)
+		}
+
+		return img, nil
+	}
+
+	// From embedded VFS
+	f, err := assets.FS.Open("characters/" + character + ".png")
+	if err != nil {
+		return nil, fmt.Errorf("failed to open character image VFS file: %w", err)
+	}
+
+	defer f.Close()
+
+	img, _, err := image.Decode(f)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode character image: %w", err)
+	}
+
+	return img, nil
 }
 
 func parseFont(size float64) (font.Face, error) {
@@ -98,11 +130,15 @@ func main() {
 	}
 
 	// Positional arguments
-	character := pflag.Args()[0] // TODO: the character
+	character := pflag.Args()[0]
 	text := pflag.Args()[1]
 
+	// Character image
+	characterImg, err := getCharacterImage(character)
+	handleError(err)
+
 	// Font
-	textFace, err := parseFont(*fontSizeFlag)
+	textFace, err := parseFont(*textFontSizeFlag)
 	handleError(err)
 
 	// Text color
@@ -111,10 +147,24 @@ func main() {
 	handleError(err)
 
 	dc := gg.NewContext(296, 256)
+
+	// Character image
+	dc.DrawImage(characterImg, (dc.Width()-characterImg.Bounds().Dx())/2, (dc.Height()-characterImg.Bounds().Dy())/2)
+
+	// Text
 	dc.SetFontFace(textFace)
+	w, h := dc.MeasureString(text)
+	dc.Rotate(*textRotationFlag)
+	dc.DrawRectangle(*textXFlag, *textYFlag, w, h)
 	dc.SetRGB(1, 1, 1)
-	drawStringAnchoredOutline(dc, text, 128, 128, 0.5, 0.5, 5)
+	drawStringAnchoredOutline(dc, text, *textXFlag, *textYFlag, 0.5, 0.5, 5)
 	dc.SetColor(textColor)
-	dc.DrawStringAnchored(text, 128, 128, 0.5, 0.5)
-	dc.SavePNG(*outputFlag)
+	dc.DrawStringAnchored(text, *textXFlag, *textYFlag, 0.5, 0.5)
+
+	// Output
+	if *outputFlag == "-" {
+		handleError(dc.EncodePNG(os.Stdout))
+	} else {
+		handleError(dc.SavePNG(*outputFlag))
+	}
 }

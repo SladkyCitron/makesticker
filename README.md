@@ -45,7 +45,11 @@ makesticker emu_13 "Wonderhoy!" -o my_sticker.png
 
 ### Available Characters
 
-You can find the full list of available characters [here](CHARACTERS.md).
+You can find the full list of available characters [here](CHARACTERS.md), or by running:
+
+```sh
+makesticker --list-characters
+```
 
 Example IDs include: `miku_01`, `emu_13`, `tsukasa_11`, `airi_02`, etc...
 
@@ -53,6 +57,7 @@ Example IDs include: `miku_01`, `emu_13`, `tsukasa_11`, `airi_02`, etc...
 
 ```
   -h, --help                   Print help message
+  -L, --list-characters        List all available characters and exit
   -o, --output string          Output image (- = stdout) (default "sticker.png")
   -q, --quiet                  Be quiet and disable spinner
       --text-font-size float   Text font size (default 36)

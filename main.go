@@ -127,8 +127,11 @@ func main() {
 	}
 
 	if *versionFlag {
-		fmt.Fprintf(os.Stderr, "makesticker version %s\n", Version)
-		fmt.Fprintf(os.Stderr, "Go version %s (%s/%s)\n", runtime.Version(), runtime.GOOS, runtime.GOARCH)
+		pink := cmdcolor.New(cmdcolor.FgHiMagenta, cmdcolor.Bold).SprintFunc()
+		cyan := cmdcolor.New(cmdcolor.FgCyan, cmdcolor.Bold).SprintFunc()
+		bold := cmdcolor.New(cmdcolor.Bold).SprintFunc()
+		fmt.Fprintf(os.Stderr, "%s %s %s\n", pink("makesticker"), bold("version"), Version)
+		fmt.Fprintf(os.Stderr, "%s %s %s (%s/%s)\n", cyan("Go"), bold("version"), runtime.Version(), runtime.GOOS, runtime.GOARCH)
 		os.Exit(0)
 	}
 

@@ -30,7 +30,9 @@ var spin *yacspin.Spinner
 func handleError(err error) {
 	if err != nil {
 		if spin != nil {
-			spin.StopFail()
+			if serr := spin.StopFail(); serr != nil {
+				panic(err) // really?!
+			}
 		}
 		red := cmdcolor.New(cmdcolor.FgRed).SprintFunc()
 		fmt.Fprintf(os.Stderr, "%s %s\n", red("Error:"), err.Error())

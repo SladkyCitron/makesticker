@@ -31,7 +31,7 @@ func handleError(err error) {
 	if err != nil {
 		if spin != nil {
 			if serr := spin.StopFail(); serr != nil {
-				panic(err) // really?!
+				panic(err) // If this fails, blame Tsukasa xD
 			}
 		}
 		red := cmdcolor.New(cmdcolor.FgRed).SprintFunc()

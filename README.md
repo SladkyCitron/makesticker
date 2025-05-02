@@ -1,6 +1,8 @@
-# 🌟 makesticker
+# 🌟 MakeSticker
 
-**makesticker** is a tiny but mighty CLI tool for creating *Project SEKAI* stickers with your favorite characters and custom text, right from your terminal! 💻🌟
+[![CI (Go)](https://github.com/MatusOllah/makesticker/actions/workflows/ci.yml/badge.svg)](https://github.com/MatusOllah/makesticker/actions/workflows/ci.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/MatusOllah/makesticker)](https://goreportcard.com/report/github.com/MatusOllah/makesticker) [![GitHub license](https://img.shields.io/github/license/MatusOllah/makesticker)](LICENSE) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-1.4-4baaaa.svg)](CODE_OF_CONDUCT.md) [![Made in Slovakia](https://raw.githubusercontent.com/pedromxavier/flag-badges/refs/heads/main/badges/SK.svg)](https://www.youtube.com/watch?v=UqXJ0ktrmh0)
+
+**MakeSticker** is a tiny but mighty CLI tool for creating *Project SEKAI* stickers with your favorite characters and custom text, right from your terminal! 💻🌟
 
 Written in **Go**, robust, and perfect for memes, reactions, or just spreading love in sticker form. 💌
 

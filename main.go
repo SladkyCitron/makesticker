@@ -124,7 +124,7 @@ func drawStringAnchoredOutline(dc *gg.Context, s string, x float64, y float64, a
 
 func main() {
 	if *helpFlag {
-		fmt.Fprintf(os.Stderr, "makesticker is a Project SEKAI CLI sticker maker, written in Go.\n")
+		fmt.Fprintf(os.Stderr, "MakeSticker is a Project SEKAI CLI sticker maker, written in Go.\n")
 		fmt.Fprintf(os.Stderr, "Copyright (c) 2025 Matúš Ollah; Licensed under MIT License\n\n")
 		pflag.Usage()
 		os.Exit(0)
@@ -136,7 +136,7 @@ func main() {
 		bold := cmdcolor.New(cmdcolor.Bold).SprintFunc()
 
 		if ver := version(); ver != "" {
-			fmt.Fprintf(os.Stderr, "%s %s %s\n", pink("makesticker"), bold("version"), version())
+			fmt.Fprintf(os.Stderr, "%s %s %s\n", pink("MakeSticker"), bold("version"), version())
 		} else {
 			fmt.Fprintln(os.Stderr, "No version info available for this build.")
 		}

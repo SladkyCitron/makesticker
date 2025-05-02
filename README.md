@@ -37,7 +37,7 @@ For example:
 makesticker emu_13 "Wonderhoy!" -o my_sticker.png
 ```
 
-➡️ This produces a sticker with **Emu** and the text "*Wonderhoy!*", saved as `my_sticker.png`.
+➡️ This produces a sticker with **Emu** and the text *"Wonderhoy!"*, saved as `my_sticker.png`.
 
 <p align="center">
     <img src="docs/sample_sticker.png" alt="Wonderhoy!" width="200">

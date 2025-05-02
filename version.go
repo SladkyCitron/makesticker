@@ -6,11 +6,11 @@ import (
 	"time"
 )
 
-var EmbedVersion string
+var MakeStickerVersion string
 
 func version() string {
-	if EmbedVersion != "" {
-		return EmbedVersion
+	if MakeStickerVersion != "" {
+		return MakeStickerVersion
 	}
 
 	bi, ok := debug.ReadBuildInfo()

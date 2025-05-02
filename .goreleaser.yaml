@@ -31,7 +31,6 @@ builds:
     ldflags:
       - -s -w
       - -X {{ .ModulePath }}/main.MakeStickerVersion={{.Version}}
-    buildmode: pie
 
 release:
   prerelease: auto

@@ -9,8 +9,10 @@ import (
 	_ "image/png"
 	"io/fs"
 	"os"
+	"path/filepath"
 	"regexp"
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/MatusOllah/makesticker/assets"
@@ -137,6 +139,21 @@ func main() {
 			fmt.Fprintln(os.Stderr, "No version info available for this build.")
 		}
 		fmt.Fprintf(os.Stderr, "%s %s %s (%s/%s)\n", cyan("Go"), bold("version"), runtime.Version(), runtime.GOOS, runtime.GOARCH)
+		os.Exit(0)
+	}
+
+	if *listCharsFlag {
+		handleError(fs.WalkDir(assets.FS, "characters", func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+
+			if !d.IsDir() {
+				fmt.Fprintln(os.Stderr, strings.ReplaceAll(filepath.Base(path), ".png", ""))
+			}
+
+			return nil
+		}))
 		os.Exit(0)
 	}
 

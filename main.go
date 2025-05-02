@@ -136,7 +136,7 @@ func main() {
 		bold := cmdcolor.New(cmdcolor.Bold).SprintFunc()
 
 		if ver := version(); ver != "" {
-			fmt.Fprintf(os.Stderr, "%s %s %s\n", pink("MakeSticker"), bold("version"), version())
+			fmt.Fprintf(os.Stderr, "%s %s %s\n", pink("MakeSticker"), bold("version"), ver)
 		} else {
 			fmt.Fprintln(os.Stderr, "No version info available for this build.")
 		}

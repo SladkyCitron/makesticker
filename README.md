@@ -77,6 +77,4 @@ Perfect for Discord, WhatsApp, Reddit, or anywhere really! 😄
 
 ## ⚖️ License
 
-Copyright (c) 2025 Matúš Ollah
-
 Licensed under the **MIT License** (see [LICENSE](LICENSE)) - free to use, fork, remix, and share!
